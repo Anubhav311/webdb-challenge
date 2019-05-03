@@ -33,12 +33,12 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-    Dishes.remove(req.params.id)
-      .then(dish => {
-        res.status(200).json(dish);
+    Projects.remove(req.params.id)
+      .then(project => {
+        res.status(200).json(project);
       })
       .catch(error => {
-        res.status(500).json({ message: 'We ran into an error deleting the dish' });
+        res.status(500).json({ message: 'We ran into an error deleting the project' });
       });
 });
 
