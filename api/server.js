@@ -1,14 +1,14 @@
 const express = require('express');
 const helmet = require('helmet');
 
-// const dishesRouter = require('../router/dishes-router');
+const projectsRouter = require('../routers/projects/projects-router');
 
 const server = express();
 
 server.use(helmet());
 server.use(express.json());
 
-// server.use('/api/dishes', dishesRouter);
+server.use('/api/projects', projectsRouter);
 
 server.get('/', (req, res) => {
     res.status(200).json("Hi")

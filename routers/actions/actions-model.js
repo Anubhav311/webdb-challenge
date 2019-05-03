@@ -1,18 +1,18 @@
-const db = require('../data/dbConfig');
+const db = require('../../data/dbConfig');
 
   
 function find() {
-    return db('projects');
+    return db('actions');
 }
 
 function findById(id) {
-    return db('projects')
+    return db('actions')
         .where({ id })
         .first();
 }
 
 function add(dish) {
-    return db('projects')
+    return db('actions')
         .insert(dish, 'id')
         .then(([id]) => {
             return findById(id);
@@ -20,7 +20,7 @@ function add(dish) {
 }
 
 function update(id, changes) {
-    return db('projects')
+    return db('actions')
         .where({ id })
         .update(changes)
         .then(count => {
@@ -33,7 +33,7 @@ function update(id, changes) {
 }
 
 function remove(id) {
-    return db('projects')
+    return db('actions')
         .where({ id })
         .del();
 }

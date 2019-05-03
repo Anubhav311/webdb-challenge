@@ -17,10 +17,9 @@ exports.up = function(knex, Promise) {
                 .boolean('status')
                 .notNullable()
         })
-  
 };
 
 exports.down = function(knex, Promise) {
     return knex.schema
-        .dropTableIfExists('recipe_ingredients')
+        .dropTableIfExists('projects')
 };
