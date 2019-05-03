@@ -11,9 +11,9 @@ function findById(id) {
         .first();
 }
 
-function add(dish) {
+function add(action) {
     return db('actions')
-        .insert(dish, 'id')
+        .insert(action, 'id')
         .then(([id]) => {
             return findById(id);
         });
