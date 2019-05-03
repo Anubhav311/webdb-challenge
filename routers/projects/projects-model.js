@@ -7,14 +7,9 @@ function find() {
 }
 
 function findById(id) {
-    console.log(db('projects.id'))
-    return db('projects').innerJoin('actions', 'projects.id', 'actions.project_id')
-
-    // return db('projects')
-    //     .select('projects.name', 'actions.description')
-    //     .innerJoin('actions', 'projects.id', 'actions.project_id')
-    //     .where({ id: id })
-    //     .first();
+    return db('projects')
+        .where({ id })
+        .first();
 }
 
 function add(project) {
@@ -52,15 +47,29 @@ function getWithActions(id) {
         // .first();
 }
 
-function findWithActions(id) {
-    return db('projects')
-        .where({ id })
-        .first();
+// function findWithActions(id) {
+//     return db('projects')
+//         .where({ id })
+//         .first();
 
-    return db('actions')
-        .where({ project_id })
-        // .first();
+//     return db('actions')
+//         .where({ project_id })
+//         // .first();
         
+// }
+
+function findWithActions(id) {
+    // console.log(db('projects.id'))
+    return db('projects', 'actions')
+        .where({ project_id: id })
+        .join('actions', 'projects.id', 'actions.project_id')
+        .distinct()
+
+    // return db('projects')
+    //     .select('projects.name', 'actions.description')
+    //     .innerJoin('actions', 'projects.id', 'actions.project_id')
+    //     .where({ id: id })
+    //     .first();
 }
 
 // router.getWithStudents('/:id/students', (req, res) => {
