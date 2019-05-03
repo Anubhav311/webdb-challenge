@@ -1,4 +1,5 @@
 const db = require('../../data/dbConfig');
+const knex = require('knex');
 
   
 function find() {
@@ -6,9 +7,14 @@ function find() {
 }
 
 function findById(id) {
-    return db('projects')
-        .where({ id })
-        .first();
+    console.log(db('projects.id'))
+    return db('projects').innerJoin('actions', 'projects.id', 'actions.project_id')
+
+    // return db('projects')
+    //     .select('projects.name', 'actions.description')
+    //     .innerJoin('actions', 'projects.id', 'actions.project_id')
+    //     .where({ id: id })
+    //     .first();
 }
 
 function add(project) {
@@ -38,6 +44,34 @@ function remove(id) {
         .del();
 }
 
+function getWithActions(id) {
+    return db('projects')
+        .innerJoin('actions', 'projects.id', 'actions.project_id')
+        .where({ id })
+        // .select('projects', 'actions')
+        // .first();
+}
+
+function findWithActions(id) {
+    return db('projects')
+        .where({ id })
+        .first();
+
+    return db('actions')
+        .where({ project_id })
+        // .first();
+        
+}
+
+// router.getWithStudents('/:id/students', (req, res) => {
+//     return db('cohorts')
+//       .join('students', 'cohorts.id', 'students.cohort_id')
+//       .select('students.id', 'students.name')
+//       .then(response => {
+//           res.status(200).json(response)
+//       })
+// })
+
 
 module.exports = {
     find,
@@ -45,4 +79,6 @@ module.exports = {
     add,
     update,
     remove,
+    getWithActions,
+    findWithActions,
 };

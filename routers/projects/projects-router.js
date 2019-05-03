@@ -5,6 +5,16 @@ const Projects = require('./projects-model');
 router.get('/', (req, res) => {
   Projects.find()
     .then(projects => {
+      res.status(200).json(projects)
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'We ran into an error retrieving the projects' });
+    });
+});
+
+router.get('/:id', (req, res) => {
+  Projects.findById(req.params.id)
+    .then(projects => {
       res.status(200).json(projects);
     })
     .catch(error => {
@@ -40,6 +50,16 @@ router.delete('/:id', (req, res) => {
       .catch(error => {
         res.status(500).json({ message: 'We ran into an error deleting the project' });
       });
+});
+
+router.get('/:id/actions', (req, res) => {
+  Projects.findWithActions(req.params.id)
+    .then(projects => {
+      res.status(200).json(projects);
+    })
+    .catch(error => {
+      res.status(500).json(error);
+    });
 });
 
 module.exports = router;
